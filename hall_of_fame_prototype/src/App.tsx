@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { collection, getDocs } from "firebase/firestore";
@@ -6,20 +6,42 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { firebaseConfig } from './config/firebase';
-
+import { getStorage } from "firebase/storage";
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  listAll,
+  list,
+} from "firebase/storage";
 
 const app = initializeApp(firebaseConfig);
-
+const storage = getStorage(app);
 const db = getFirestore(app);
 
 
 function App() {
   const [count, setCount] = useState(0)
-  getDocs(collection(db, "memes")).then((querySnapshot)=>{
+  const imagesListRef = ref(storage, "memes/");
+  const [imageUrls, setImageUrls] = useState<Array<string>>([]);
+
+  getDocs(collection(db, "memes")).then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
-      console.log(`${doc.id} => ${doc.data()}`);
+      // console.log(`${doc.id} => ${doc.data()}`);
     });
   })
+
+  useEffect(() => {
+    listAll(imagesListRef).then((response) => {
+      response.items.forEach((item) => {
+        getDownloadURL(item).then((url) => {
+          console.log(imageUrls);
+          
+          setImageUrls([...imageUrls, url]);
+        });
+      });
+    });
+  }, []);
   return (
     <>
       <div>
@@ -42,6 +64,10 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+      {imageUrls.map((url) => {
+        return <img src={url} />;
+      })}
+
     </>
   )
 }
