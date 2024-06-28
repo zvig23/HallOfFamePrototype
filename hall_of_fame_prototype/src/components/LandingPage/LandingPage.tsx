@@ -1,8 +1,12 @@
-export interface LandingPageProps {}
+export interface LandingPageProps { }
 
 export const LandingPage = (props: LandingPageProps) => {
-	
+
 	return (
-		<div>aaaaaaaaaaaaaaaaaa</div>
+		<>
+			<h1>Team Prototype</h1>
+			<h2>Hall Of Fame</h2>
+			<footer> brought you by Dvir Levi</footer>
+		</>
 	);
 };
