@@ -13,6 +13,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { useState } from 'react';
 import { Drawer, DrawerHeader } from './style';
+import { Page } from '../../App';
+import { useNavigate } from 'react-router-dom';
+
+
+
 
 const LIST_ITEM_BUTTON_STYLE_BASIC: SxProps = {
 	minHeight: 48,
@@ -21,9 +26,16 @@ const LIST_ITEM_BUTTON_STYLE_BASIC: SxProps = {
 
 const LIST_ITEM_STYLE_BASIC: SxProps = { display: 'block' }
 
-export const NavBar = () => {
-	const [open, setOpen] = useState(false);
 
+export interface NavBarProps {
+	pages: Array<Page>;
+}
+
+
+
+export const NavBar = ({ pages }: NavBarProps) => {
+	const [open, setOpen] = useState(false);
+	const navigate = useNavigate()
 	const handleDrawerClicked = () => {
 		setOpen(!open);
 	};
@@ -39,12 +51,13 @@ export const NavBar = () => {
 				</DrawerHeader>
 				<Divider />
 				<List>
-					{['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-						<ListItem key={text} disablePadding sx={LIST_ITEM_STYLE_BASIC}>
+					{pages.map((page) => (
+						<ListItem disablePadding sx={LIST_ITEM_STYLE_BASIC}>
 							<ListItemButton
 								sx={{
 									...LIST_ITEM_BUTTON_STYLE_BASIC, justifyContent: open ? 'initial' : 'center',
 								}}
+								onClick={() => { navigate(page.route) }}
 							>
 								<ListItemIcon
 									sx={{
@@ -53,9 +66,9 @@ export const NavBar = () => {
 										justifyContent: 'center',
 									}}
 								>
-									{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+									{page.icon}
 								</ListItemIcon>
-								<ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+								<ListItemText primary={page.name} sx={{ opacity: open ? 1 : 0 }} />
 							</ListItemButton>
 						</ListItem>
 					))}
