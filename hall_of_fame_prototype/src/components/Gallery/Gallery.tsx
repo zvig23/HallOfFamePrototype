@@ -96,7 +96,7 @@ export const Gallery = ({ collectionName, createItem, presentItem }: GalleryProp
 			{loading && <p>Loading gallery...</p>}
 			{images &&
 				<Slide>
-					{images.map((imageUrl,index) => {
+					{images.map((imageUrl, index) => {
 						return (
 							<div key={index} className="image-container">
 								<img src={imageUrl} />

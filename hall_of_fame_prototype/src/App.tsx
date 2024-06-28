@@ -15,40 +15,22 @@ import ClosedCaptionOffIcon from '@mui/icons-material/ClosedCaptionOff';
 import CollectionsIcon from '@mui/icons-material/Collections';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import Diversity2Icon from '@mui/icons-material/Diversity2';
-import React from "react";
+import { Page, createPage } from "./modules/Page";
 
 const app = initializeApp(firebaseConfig);
 export const storage = getStorage(app);
 export const db = getFirestore(app);
 
 
-export type Page = {
-  name: string;
-  route: string;
-  icon: React.ReactNode;
-  element: JSX.Element
-}
 
-const createPage = (name: string,
-  route: string,
-  icon: React.ReactNode,
-  element: JSX.Element
-): Page => {
-  return {
-    name: name,
-    route: route,
-    icon: icon,
-    element: element
-  }
-}
 
 const App = () => {
   const pages: Array<Page> = [
-    createPage("Home", "LandingPage", <HomeIcon />, <LandingPage />),
-    createPage("Memes", "MemesGallery", <ClosedCaptionOffIcon />, <MemesGallery />),
-    createPage("memories", "MemoriessGallery", <CollectionsIcon />, <MemoriessGallery />),
-    createPage("Quotes", "QuotesWall", <FormatQuoteIcon />, <QuotesWall />),
-    createPage("Members", "HallOfFameMembers", <Diversity2Icon />, <HallOfFameMembers />),]
+    createPage("Home", "LandingPage", <HomeIcon />),
+    createPage("Memes", "MemesGallery", <ClosedCaptionOffIcon />),
+    createPage("memories", "MemoriessGallery", <CollectionsIcon />),
+    createPage("Quotes", "QuotesWall", <FormatQuoteIcon />),
+    createPage("Members", "HallOfFameMembers", <Diversity2Icon />)]
   
   
   return (

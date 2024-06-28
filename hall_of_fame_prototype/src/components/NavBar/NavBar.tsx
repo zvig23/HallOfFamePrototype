@@ -1,7 +1,5 @@
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import MailIcon from '@mui/icons-material/Mail';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import { SxProps, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -12,12 +10,9 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { useState } from 'react';
-import { Drawer, DrawerHeader } from './style';
-import { Page } from '../../App';
 import { useNavigate } from 'react-router-dom';
-
-
-
+import { Drawer, DrawerHeader } from './style';
+import { Page } from '../../modules/Page';
 
 const LIST_ITEM_BUTTON_STYLE_BASIC: SxProps = {
 	minHeight: 48,
@@ -25,7 +20,6 @@ const LIST_ITEM_BUTTON_STYLE_BASIC: SxProps = {
 }
 
 const LIST_ITEM_STYLE_BASIC: SxProps = { display: 'block' }
-
 
 export interface NavBarProps {
 	pages: Array<Page>;
